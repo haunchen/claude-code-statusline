@@ -6,14 +6,9 @@
 //
 // Zero external dependencies — only requires Node.js.
 
-// ─── Configuration ──────────────────────────────────────
-// Set your UTC offset here. Examples:
-//   UTC+8  (Taiwan/Singapore/HK)  → 8
-//   UTC+9  (Japan/Korea)          → 9
-//   UTC+1  (CET)                  → 1
-//   UTC-5  (EST)                  → -5
-const UTC_OFFSET = 8;
-// ────────────────────────────────────────────────────────
+// No timezone configuration needed.
+// Peak detection uses UTC directly (13:00–19:00 UTC / 5am–11am PT)
+// and works automatically in any timezone.
 
 const chunks = [];
 process.stdin.on('data', c => chunks.push(c));
@@ -58,46 +53,24 @@ process.stdin.on('end', () => {
 
     // ─── Peak / Off-peak detection ──────────────────────
     // Peak hours (official): Weekdays 5am–11am PT / 1pm–7pm GMT
-    // This block converts to your local timezone via UTC_OFFSET
-    // and determines if you're in the peak window.
-    //
-    // The approach: add UTC_OFFSET hours to UTC timestamp,
-    // then read with getUTC* methods — works on any OS/timezone.
-    const now = new Date(Date.now() + UTC_OFFSET * 3600_000);
-    const day = now.getUTCDay();   // 0=Sun, 6=Sat
-    const hour = now.getUTCHours();
-    const mins = now.getUTCMinutes();
-    const isWeekend = day === 0 || day === 6;
+    // We check directly in UTC (13:00–19:00) to avoid timezone
+    // conversion bugs (midnight wrap, half-hour offsets, DST).
+    // Weekday is checked in PT (UTC-8) since Anthropic defines
+    // "weekday" by Pacific Time.
+    const utcNow = new Date();
+    const utcHour = utcNow.getUTCHours();
+    const utcMin = utcNow.getUTCMinutes();
 
-    // Convert peak hours (5am–11am PT) to local time:
-    // PT = UTC-7, so 5am PT = 12:00 UTC = (12 + UTC_OFFSET):00 local
-    //              11am PT = 18:00 UTC = (18 + UTC_OFFSET):00 local
-    // For UTC+8: 20:00–02:00+1 (wraps midnight)
-    // For UTC+9: 21:00–03:00+1
-    let peakStartLocal = (12 + UTC_OFFSET) % 24;
-    let peakEndLocal = (18 + UTC_OFFSET) % 24;
-    if (peakStartLocal < 0) peakStartLocal += 24;
-    if (peakEndLocal < 0) peakEndLocal += 24;
+    // Weekday check in PT (UTC-8)
+    const ptNow = new Date(Date.now() - 8 * 3600_000);
+    const ptDay = ptNow.getUTCDay(); // 0=Sun, 6=Sat
+    const isWeekend = ptDay === 0 || ptDay === 6;
 
-    let isPeak;
-    if (peakStartLocal < peakEndLocal) {
-      // No midnight wrap (e.g. UTC-5: 7:00–13:00)
-      isPeak = !isWeekend && hour >= peakStartLocal && hour < peakEndLocal;
-    } else {
-      // Wraps midnight (e.g. UTC+8: 20:00–02:00)
-      isPeak = !isWeekend && (hour >= peakStartLocal || hour < peakEndLocal);
-    }
+    const isPeak = !isWeekend && utcHour >= 13 && utcHour < 19;
 
     let peakLabel;
     if (isPeak) {
-      let minsLeft;
-      if (peakStartLocal < peakEndLocal) {
-        minsLeft = (peakEndLocal - hour) * 60 - mins;
-      } else {
-        minsLeft = hour >= peakStartLocal
-          ? ((24 - hour + peakEndLocal) * 60 - mins)
-          : ((peakEndLocal - hour) * 60 - mins);
-      }
+      const minsLeft = (19 - utcHour) * 60 - utcMin;
       const h = Math.floor(minsLeft / 60);
       const m = minsLeft % 60;
       const cd = h > 0 ? `${h}h${m.toString().padStart(2, '0')}m` : `${m}m`;
