@@ -2,10 +2,18 @@
 
 [English](README.md) | [繁體中文](README_zh-TW.md)
 
-A cross-platform statusline for [Claude Code](https://docs.anthropic.com/en/docs/claude-code) that shows **peak/off-peak hour awareness**, context usage, session cost, and rate limits — all in one glance.
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-blue)
+![Node.js](https://img.shields.io/badge/node.js-%3E%3D14-brightgreen)
 
-![Off-peak](screenshots/off-peak.png)
-![Peak](screenshots/peak.png)
+A cross-platform statusline for [Claude Code](https://docs.anthropic.com/en/docs/claude-code) that displays peak/off-peak hour awareness, context window usage, session cost, and rate limits — all in one glance. Zero configuration required.
+
+![Off-peak statusline showing green OFF-PEAK indicator with model, context, cost and rate limit info](screenshots/off-peak.png)
+![Peak statusline showing red PEAK indicator with countdown timer](screenshots/peak.png)
+
+## Why?
+
+During peak hours, Claude Code burns through your 5-hour session limit faster. This statusline lets you see at a glance whether you're in peak or off-peak hours, how much of your rate limit you've used, and when it resets — so you can plan your usage accordingly.
 
 ## Background
 
@@ -36,13 +44,13 @@ Weekends are **all-day off-peak** regardless of timezone.
 
 ## Features
 
-- **Peak/off-peak indicator** with countdown timer during peak hours
-- **Context window** usage percentage (color-coded: green → yellow → red)
-- **Session cost** in USD
-- **5-hour rate limit** usage with reset countdown
-- **7-day rate limit** usage
-- **Zero configuration** — works automatically in any timezone
-- **Cross-platform** — works on Windows, macOS, and Linux
+- **Peak/off-peak indicator** — real-time status with countdown timer during peak hours
+- **Context window usage** — percentage with color coding (green → yellow → red)
+- **Session cost** — running total in USD
+- **5-hour rate limit** — usage percentage with reset countdown
+- **7-day rate limit** — usage percentage
+- **Zero configuration** — auto-detects peak hours via UTC, works in any timezone
+- **Cross-platform** — single Node.js script runs on Windows, macOS, and Linux
 
 ## Prerequisites
 

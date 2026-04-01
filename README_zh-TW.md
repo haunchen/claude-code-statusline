@@ -2,10 +2,18 @@
 
 [English](README.md) | [繁體中文](README_zh-TW.md)
 
-跨平台的 [Claude Code](https://docs.anthropic.com/en/docs/claude-code) 狀態列，一眼掌握尖峰/離峰時段、context 用量、費用與速率限制。
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-blue)
+![Node.js](https://img.shields.io/badge/node.js-%3E%3D14-brightgreen)
 
-![離峰](screenshots/off-peak.png)
-![尖峰](screenshots/peak.png)
+跨平台的 [Claude Code](https://docs.anthropic.com/en/docs/claude-code) 狀態列，一眼掌握尖峰/離峰時段、context window 用量、session 費用與速率限制。零設定，任何時區自動運作。
+
+![離峰狀態列：綠色 OFF-PEAK 指示燈，顯示模型、context、費用與速率限制資訊](screenshots/off-peak.png)
+![尖峰狀態列：紅色 PEAK 指示燈，附倒數計時器](screenshots/peak.png)
+
+## 為什麼需要這個？
+
+尖峰時段 Claude Code 消耗 5 小時 session 額度的速度會加快。這個狀態列讓你一眼看出目前是尖峰還是離峰、速率限制用了多少、何時重置，方便你規劃使用時機。
 
 ## 背景
 
@@ -36,13 +44,13 @@
 
 ## 功能
 
-- 尖峰/離峰即時顯示，尖峰時附倒數計時
-- Context window 用量百分比（綠 → 黃 → 紅）
-- 本次 session 費用（USD）
-- 5 小時速率限制用量 + 重置倒數
-- 7 天速率限制用量
-- 零設定 — 任何時區自動判斷，不需設定
-- 跨平台 — Windows、macOS、Linux 通用
+- 尖峰/離峰即時顯示 — 尖峰時附倒數計時
+- Context window 用量 — 百分比顯示，依閾值變色（綠 → 黃 → 紅）
+- Session 費用 — 即時累計金額（USD）
+- 5 小時速率限制 — 用量百分比 + 重置倒數
+- 7 天速率限制 — 用量百分比
+- 零設定 — 透過 UTC 自動判斷尖峰，任何時區都不需額外設定
+- 跨平台 — 單一 Node.js 腳本，Windows、macOS、Linux 通用
 
 ## 系統需求
 
