@@ -6,6 +6,9 @@
 ![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-blue)
 ![Node.js](https://img.shields.io/badge/node.js-%3E%3D14-brightgreen)
 
+> [!WARNING]
+> **棄用通知（2026-05-06）** — Anthropic [取消](https://www.anthropic.com/news/higher-limits-spacex) Claude Code Pro 與 Max 方案的尖峰時段限制，並把 5 小時速率限制加倍。對多數使用者來說，尖峰/離峰指示已無實質意義；其他資訊（context、費用、速率限制）仍可使用。本 repo 保留為歷史紀錄，不再持續維護。
+
 跨平台的 [Claude Code](https://docs.anthropic.com/en/docs/claude-code) 狀態列，一眼掌握尖峰/離峰時段、context window 用量、session 費用與速率限制。零設定，任何時區自動運作。
 
 ![離峰狀態列：綠色 OFF-PEAK 指示燈，顯示模型、context、費用與速率限制資訊](screenshots/off-peak.png)

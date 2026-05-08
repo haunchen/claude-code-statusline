@@ -6,6 +6,9 @@
 ![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-blue)
 ![Node.js](https://img.shields.io/badge/node.js-%3E%3D14-brightgreen)
 
+> [!WARNING]
+> **Deprecation notice (2026-05-06)** — Anthropic [removed the peak hours limit reduction](https://www.anthropic.com/news/higher-limits-spacex) on Claude Code for Pro and Max plans and doubled the 5-hour rate limits. The peak/off-peak indicator is no longer informative for most users; the rest of the statusline (context, cost, rate limits) still works. This repo is kept for historical reference and is no longer actively maintained.
+
 A cross-platform statusline for [Claude Code](https://docs.anthropic.com/en/docs/claude-code) that displays peak/off-peak hour awareness, context window usage, session cost, and rate limits — all in one glance. Zero configuration required.
 
 ![Off-peak statusline showing green OFF-PEAK indicator with model, context, cost and rate limit info](screenshots/off-peak.png)
